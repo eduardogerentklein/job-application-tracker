@@ -47,7 +47,7 @@ namespace Application.Services.JobApplications
                 Position = request.Position,
                 CompanyName = request.CompanyName,
                 ApplicationDate = request.ApplicationDate ?? _dateTimeProvider.UtcNow,
-                StatusId = (int)request.Status
+                StatusId = request.StatusId
             };
 
             await _repository.AddAsync(jobApplication, cancellationToken);
@@ -64,7 +64,7 @@ namespace Application.Services.JobApplications
             if (!validationResult.IsValid)
             {
                 _logger.LogError("Completed command {CommandName} with error", nameof(UpdateAsync));
-                return Result.Failure(JobApplicationErrors.CreateValidationFailed());
+                return Result.Failure(JobApplicationErrors.UpdateValidationFailed());
             }
 
             var jobApplication = await _repository.GetByIdAsync(command.Id, cancellationToken);
@@ -77,7 +77,7 @@ namespace Application.Services.JobApplications
                 Position = command.Position,
                 CompanyName = command.CompanyName,
                 ApplicationDate = command.ApplicationDate ?? _dateTimeProvider.UtcNow,
-                StatusId = (int)command.Status
+                StatusId = command.StatusId
             };
 
             await _repository.UpdateAsync(jobApplication, updatedJobApplication, cancellationToken);
@@ -94,7 +94,7 @@ namespace Application.Services.JobApplications
             if (!validationResult.IsValid)
             {
                 _logger.LogError("Completed command {CommandName} with errors", nameof(DeleteAsync));
-                return Result.Failure(JobApplicationErrors.CreateValidationFailed());
+                return Result.Failure(JobApplicationErrors.DeleteValidationFailed());
             }
 
             var jobApplication = await _repository.GetByIdAsync(command.Id, cancellationToken);

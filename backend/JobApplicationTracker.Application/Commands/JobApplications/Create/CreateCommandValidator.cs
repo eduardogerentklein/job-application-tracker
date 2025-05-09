@@ -23,8 +23,8 @@ namespace Application.Commands.JobApplications.Create
                 .Must(date => date != default)
                 .WithMessage("Application date must be a valid date.");
 
-            RuleFor(c => c.Status)
-                .IsInEnum();
+            RuleFor(c => c.StatusId)
+                .GreaterThan(0);
         }
     }
 }

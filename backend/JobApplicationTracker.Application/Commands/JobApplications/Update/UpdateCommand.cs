@@ -7,6 +7,6 @@ namespace Application.Commands.JobApplications.Update
         string Position,
         string CompanyName,
         DateTime? ApplicationDate,
-        ApplicationStatus Status
+        int StatusId
     );
 }

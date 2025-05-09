@@ -23,8 +23,8 @@ namespace Application.Commands.JobApplications.Update
                 .When(x => x.ApplicationDate.HasValue)
                 .WithMessage("Application date must be a valid date.");
 
-            RuleFor(c => c.Status)
-                .IsInEnum();
+            RuleFor(c => c.StatusId)
+                .GreaterThan(0);
         }
     }
 }

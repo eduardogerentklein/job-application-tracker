@@ -65,7 +65,7 @@ namespace Web.Api
 
                     return RateLimitPartition.GetFixedWindowLimiter(ip, _ => new FixedWindowRateLimiterOptions
                     {
-                        PermitLimit = 10,
+                        PermitLimit = 30,
                         Window = TimeSpan.FromMinutes(1), // Per 1 minute
                         QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
                         QueueLimit = 2

@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions.Services;
 using Application.Commands.JobApplications.Update;
-using Domain.Enums;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;
 
@@ -13,7 +12,7 @@ internal sealed class Update : IEndpoint
         public string Position { get; set; } = string.Empty;
         public string CompanyName { get; set; } = string.Empty;
         public DateTime? ApplicationDate { get; set; }
-        public ApplicationStatus Status { get; set; }
+        public int StatusId { get; set; }
     }
 
     public void MapEndpoint(IEndpointRouteBuilder app)
@@ -25,7 +24,7 @@ internal sealed class Update : IEndpoint
                 request.Position,
                 request.CompanyName,
                 request.ApplicationDate,
-                request.Status);
+                request.StatusId);
 
             var result = await service.UpdateAsync(command, cancellationToken);
 

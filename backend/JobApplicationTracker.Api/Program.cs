@@ -10,6 +10,17 @@ using Web.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontEnd",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
 builder
@@ -50,6 +61,8 @@ if (app.Environment.IsDevelopment())
 app.UseRateLimiter();
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontEnd");
 
 app.UseMiddleware<RequestLogContextMiddleware>();
 
