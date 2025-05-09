@@ -11,7 +11,15 @@ const axiosClient = axios.create({
 axiosClient.interceptors.response.use(
   response => response,
   error => {
-    toast(error.response?.data.detail || 'Unexpected error occurred')
+    const status = error.response?.status || 500
+    const message = error.response?.data?.detail || 'Unexpected error occurred'
+    const checkErrorStatusFamily = (
+      currentStatus: number,
+      statusGroup: number
+    ) => Math.floor(currentStatus / 100) === statusGroup
+    if (checkErrorStatusFamily(status, 4)) toast(message)
+    else if (checkErrorStatusFamily(status, 5)) toast(message)
+
     return Promise.reject(error)
   }
 )

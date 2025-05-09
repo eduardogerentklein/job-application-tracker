@@ -33,8 +33,6 @@ export default function JobTracker() {
       try {
         const data = await getApplicationStatuses()
         setStatuses(data)
-      } catch (err) {
-        console.error('Failed to fetch status:', err)
       } finally {
         setLoading(false)
       }
@@ -49,8 +47,6 @@ export default function JobTracker() {
         const data = await getJobApplications(pageNumber, pageSize)
         setJobs(data.items)
         setTotalCount(data.totalCount)
-      } catch (err) {
-        console.error('Failed to fetch job applications:', err)
       } finally {
         setLoading(false)
       }
@@ -64,8 +60,6 @@ export default function JobTracker() {
       try {
         await createJobApplication(job)
         setRefresh(prev => !prev)
-      } catch (err) {
-        console.error('Failed to create job application:', err)
       } finally {
         setLoading(false)
         setIsFormOpen(false)
@@ -80,8 +74,6 @@ export default function JobTracker() {
       try {
         await updateJobApplication(updatedJob.id, updatedJob)
         setRefresh(prev => !prev)
-      } catch (err) {
-        console.error('Failed to update job application:', err)
       } finally {
         setLoading(false)
         setEditingJob(null)
@@ -97,8 +89,6 @@ export default function JobTracker() {
       try {
         await deleteJobApplication(id)
         setRefresh(prev => !prev)
-      } catch (err) {
-        console.error('Failed to delete job application:', err)
       } finally {
         setLoading(false)
       }

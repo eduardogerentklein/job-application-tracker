@@ -11,7 +11,6 @@ export const createJobApplication = async (
   data: CreateJobApplicationRequest
 ): Promise<string> => {
   const response = await axiosClient.post<string>(endpoints.applications, data)
-  console.log('response', response)
   return response.data
 }
 
