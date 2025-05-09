@@ -22,11 +22,13 @@ import {
 } from '@/components/ui/popover'
 import { Calendar } from '@/components/ui/calendar'
 import type { ApplicationStatus, JobApplication } from '@/lib/types'
+import { jobFormSchema, JobFormValues } from '@/lib/schemas/jobForm'
+import { ZodError } from 'zod'
 
 interface JobFormProps {
   onSubmit: (job: JobApplication) => void
   onCancel: () => void
-  initialData?: JobApplication | null
+  initialData?: JobFormValues | null
   statuses?: ApplicationStatus[] | null
 }
 
@@ -36,13 +38,17 @@ export default function JobForm({
   initialData,
   statuses,
 }: JobFormProps) {
-  const [formData, setFormData] = useState<Omit<JobApplication, 'id'>>({
+  const [formData, setFormData] = useState<Omit<JobFormValues, 'id'>>({
     position: initialData?.position || '',
     companyName: initialData?.companyName || '',
     applicationDate:
-      initialData?.applicationDate || new Date().toISOString().split('T')[0],
+      initialData?.applicationDate || format(new Date(), 'yyyy-MM-dd'),
     statusId: initialData?.statusId || 1,
   })
+
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof JobFormValues, string>>
+  >({})
 
   const [date, setDate] = useState<Date | undefined>(
     initialData?.applicationDate
@@ -66,18 +72,30 @@ export default function JobForm({
       setDate(date)
       setFormData({
         ...formData,
-        applicationDate: date.toISOString().split('T')[0],
+        applicationDate: format(date, 'yyyy-MM-dd'),
       })
     }
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit(
-      initialData
-        ? { ...formData, id: initialData.id }
-        : { ...formData, id: '' }
-    )
+    try {
+      const parsedData = jobFormSchema.parse(
+        initialData
+          ? { ...formData, id: initialData.id }
+          : { ...formData, id: '' }
+      )
+      onSubmit(parsedData)
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const fieldErrors: Partial<Record<keyof JobFormValues, string>> = {}
+        error.errors.forEach(e => {
+          if (e.path[0])
+            fieldErrors[e.path[0] as keyof JobFormValues] = e.message
+        })
+        setErrors(fieldErrors)
+      }
+    }
   }
 
   return (
@@ -95,8 +113,8 @@ export default function JobForm({
             value={formData.position}
             onChange={handleChange}
             placeholder="Software Engineer"
-            required
           />
+          {errors.position && <p className="text-red-500">{errors.position}</p>}
         </div>
 
         <div className="space-y-2">
@@ -107,8 +125,10 @@ export default function JobForm({
             value={formData.companyName}
             onChange={handleChange}
             placeholder="Datacom"
-            required
           />
+          {errors.companyName && (
+            <p className="text-red-500">{errors.companyName}</p>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -132,6 +152,9 @@ export default function JobForm({
               />
             </PopoverContent>
           </Popover>
+          {errors.applicationDate && (
+            <p className="text-red-500">{errors.applicationDate}</p>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -151,6 +174,7 @@ export default function JobForm({
               ))}
             </SelectContent>
           </Select>
+          {errors.statusId && <p className="text-red-500">{errors.statusId}</p>}
         </div>
       </div>
 
