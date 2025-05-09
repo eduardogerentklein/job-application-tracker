@@ -1,0 +1,46 @@
+@baseUrl = https://localhost:32773
+
+### Create a Job Application
+POST {{baseUrl}}/applications
+Content-Type: application/json
+
+{
+  "position": "Software Engineer",
+  "companyName": "Acme Corp",
+  "applicationDate": "2025-05-08T00:00:00Z",
+  "status": "Applied"
+}
+
+###
+
+### Get All Job Applications with Pagination
+GET {{baseUrl}}/applications?pageNumber=1&pageSize=10
+Accept: application/json
+
+###
+
+### Get Job Application by ID
+GET {{baseUrl}}/applications/{{applicationId}}
+Accept: application/json
+
+# Replace {{applicationId}} with actual GUID, e.g.:
+# GET {{baseUrl}}/applications/3fa85f64-5717-4562-b3fc-2c963f66afa6
+
+###
+
+### Update a Job Application
+PUT {{baseUrl}}/applications/{{applicationId}}
+Content-Type: application/json
+
+{
+  "position": "Senior Developer",
+  "companyName": "Globex Inc.",
+  "status": "Accepted"
+}
+
+###
+
+### Delete a Job Application
+DELETE {{baseUrl}}/applications/{{applicationId}}
+
+# Replace {{applicationId}} with a valid GUID
