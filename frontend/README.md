@@ -6,7 +6,7 @@ A web application to track job applications, manage their statuses, and organize
 
 - Add, update, and delete job applications.
 - Track application statuses (e.g., applied, interview, offer, rejected, accepted).
-- View a list of all job applications with filtering and pagination.
+- View a list of all job applications with pagination.
 
 ## Prerequisites
 
