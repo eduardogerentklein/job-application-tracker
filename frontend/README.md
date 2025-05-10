@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Job Application Tracker
 
-## Getting Started
+A web application to track job applications, manage their statuses, and organize related information.
 
-First, run the development server:
+## Features
+
+- Add, update, and delete job applications.
+- Track application statuses (e.g., applied, interview, offer, rejected, accepted).
+- View a list of all job applications with filtering and pagination.
+
+## Prerequisites
+
+- Node.js (>= 14.x)
+- **pnpm or yarn (preferred)** or npm
+
+## Installation
+
+### 1. Clone the repository:
 
 ```bash
-npm run dev
+git clone https://github.com/eduardogerentklein/job-application-tracker.git
+cd job-application-tracker/frontend
+```
+
+### 2. Install dependencies:
+
+```bash
+pnpm install
+# or
+yarn install
+# or
+npm install
+```
+
+### 3. Set up environment variables:
+
+Create a `.env` file in the root directory and define the following environment variable:
+
+```bash
+API_URL=<your-api-url>
+```
+
+This environment variable will be used to connect to the API (backend).
+
+Example:
+
+```bash
+API_URL=https://localhost:5001/
+```
+
+### 4. Run the development server:
+
+```bash
+pnpm run dev
 # or
 yarn dev
 # or
-pnpm dev
-# or
-bun dev
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- To add a new job application, click on the "Add Application" button and fill in the details.
+- To update an existing application, click on the dropdown under "Actions" column in the list, make your changes, and click "Update Application".
+- To delete an application, click on the dropdown under "Actions" column in the list and then click the "Delete" button.
 
-## Learn More
+## Technologies
 
-To learn more about Next.js, take a look at the following resources:
+This project is built with the following technologies:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js](https://nextjs.org) - React framework for building server-side rendered applications.
+- [TypeScript](https://www.typescriptlang.org/) - A superset of JavaScript that adds static types.
+- [Axios](https://axios-http.com/) - Axios is a promise based HTTP client.
+- [shadcn/ui](https://ui.shadcn.com/) - A set of beautifully-designed, accessible components and a code distribution platform.
+- [Tailwind CSS v4](https://tailwindcss.com/) - A utility-first CSS framework for styling.
+- [Zod](https://zod.dev/) - Schema validation library.
+- [lucide-react](https://lucide.dev/) - Open-source icon library.
