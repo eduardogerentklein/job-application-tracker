@@ -12,14 +12,14 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Web.Api/Web.Api.csproj", "Web.Api/"]
-COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
-COPY ["Application/Application.csproj", "Application/"]
-COPY ["Common/Common.csproj", "Common/"]
-COPY ["Domain/Domain.csproj", "Domain/"]
-RUN dotnet restore "./Web.Api/Web.Api.csproj"
+COPY ["JobApplicationTracker.Api/Web.Api.csproj", "JobApplicationTracker.Api/"]
+COPY ["JobApplicationTracker.Infrastructure/Infrastructure.csproj", "JobApplicationTracker.Infrastructure/"]
+COPY ["JobApplicationTracker.Application/Application.csproj", "JobApplicationTracker.Application/"]
+COPY ["JobApplicationTracker.Common/Common.csproj", "JobApplicationTracker.Common/"]
+COPY ["JobApplicationTracker.Domain/Domain.csproj", "JobApplicationTracker.Domain/"]
+RUN dotnet restore "./JobApplicationTracker.Api/Web.Api.csproj"
 COPY . .
-WORKDIR "/src/Web.Api"
+WORKDIR "/src/JobApplicationTracker.Api"
 RUN dotnet build "./Web.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
