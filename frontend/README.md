@@ -37,7 +37,7 @@ npm install
 Create a `.env` file in the root directory and define the following environment variable:
 
 ```bash
-API_URL=<your-api-url>
+NEXT_PUBLIC_API_URL=<your-api-url>
 ```
 
 This environment variable will be used to connect to the API (backend).
@@ -45,7 +45,8 @@ This environment variable will be used to connect to the API (backend).
 Example:
 
 ```bash
-API_URL=https://localhost:5001/
+# set the <port> according to your docker port or IIS port
+NEXT_PUBLIC_API_URL=https://localhost:<port>/
 ```
 
 ### 4. Run the development server:

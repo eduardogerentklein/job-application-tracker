@@ -79,14 +79,6 @@ The backend uses **Dependency Injection** to manage dependencies. Services, repo
 
 ### Running the Application
 
-1. Clone the repository:
-
-```bash
-git clone https://github.com/eduardogerentklein/job-application-tracker.git
-cd job-application-tracker/backend
-
-```
-
 ### Visual Studio
 
 1. Clone the repository:
